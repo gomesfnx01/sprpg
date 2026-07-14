@@ -587,7 +587,7 @@
           {
             icon: '🎁',
             title: 'Recompensas',
-            text: ''A cada nível geral que você sobe, ganha um baú. Ao abri-lo, você recebe um card aleatório de uma coleção. Há cards Comuns, Raros, Épicos e Lendários – todos com chances iguais!\n\n🛠️ No menu "Ferramentas" (na Home), você encontra a opção de reiniciar toda a aventura – use com cuidado, pois é irreversível!'
+            text: 'A cada nível geral que você sobe, ganha um baú. Ao abri-lo, você recebe um card aleatório de uma coleção. Há cards Comuns, Raros, Épicos e Lendários – todos com chances iguais!\n\n🛠️ No menu "Ferramentas" (na Home), você encontra a opção de reiniciar toda a aventura – use com cuidado, pois é irreversível!'
           }
         ];
 
