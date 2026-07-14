@@ -1,0 +1,15 @@
+{
+  "name": "sistema-pessoal-rpg",
+  "version": "1.0.0",
+  "description": "Ferramentas de suporte (geração do manifest de cards) do Sistema Pessoal RPG",
+  "main": "generate-cards-manifest.js",
+  "scripts": {
+    "cards": "node generate-cards-manifest.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jimp": "^1.6.1"
+  }
+}

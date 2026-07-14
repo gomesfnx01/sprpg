@@ -1,0 +1,1017 @@
+/* ============================================================
+   theme.css — identidade visual "janela de RPG 16-bit"
+   ============================================================ */
+:root {
+  --ink: #14152a;
+  --ink-deep: #0b0c1a;
+  --window-blue: #333c72;
+  --window-blue-deep: #171a33;
+  --bone: #eae6da;
+  --bone-dim: #b9b6ab;
+  --gold: #f0c674;
+  --gold-deep: #b9862e;
+  --ember: #e2703a;
+  --teal: #4ecdc4;
+  --muted: #8b8fb0;
+  --danger: #e2703a;
+
+  --font-display: 'Press Start 2P', monospace;
+  --font-body: 'Nunito', system-ui, sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+}
+
+html, body {
+  background: var(--ink);
+  color: var(--bone);
+  font-family: var(--font-body);
+  font-size: 16px;
+}
+
+#app-shell {
+  background: var(--bg-app);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  max-width: 520px;
+  margin: 0 auto;
+  transition: opacity 0.4s ease;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(240,198,116,0.06), transparent 60%),
+    var(--ink);
+      height: 100vh;
+  height: 100dvh;
+  max-height: 100vh;
+  max-height: 100dvh;
+}
+
+/* Escondido até a introdução (splash + boas-vindas) terminar, pra nunca
+   piscar a Home por baixo dos overlays de abertura. */
+#app-shell.pre-intro {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#app-header {
+   background: var(--bg-header);
+  border-bottom-color: var(--border-header);
+  position: relative;
+  flex: 0 0 auto;
+  padding: 14px 16px 10px;
+  text-align: center;
+  border-bottom: 3px solid var(--gold-deep);
+  background: linear-gradient(180deg, var(--ink-deep), var(--ink));
+}
+.sound-toggle {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  font-size: 18px;
+  padding: 4px 6px;
+  color: var(--muted);
+  z-index: 2;
+}
+.sound-toggle:active { color: var(--gold); }
+#app-header h1 {
+  font-family: var(--font-display);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--gold);
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+  letter-spacing: 0.5px;
+}
+.header-player {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--gold);
+  margin-top: 5px;
+  letter-spacing: 0.2px;
+}
+
+#app-main {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 16px 0 24px;
+    scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+#app-main::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.screen { display: none; }
+.screen.active { display: block; animation: screen-in 0.28s ease; }
+
+@keyframes screen-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Barra de navegação inferior ---------- */
+#app-nav {
+  flex: 0 0 auto;
+  display: flex;
+  border-top: 3px solid var(--gold-deep);
+  background: linear-gradient(0deg, var(--ink-deep), var(--ink));
+  padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+}
+.navbtn {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 6px 2px;
+  font-size: 20px;
+  color: var(--muted);
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s, transform 0.1s;
+}
+.nav-badge {
+  position: absolute;
+  top: 0;
+  right: 6px;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 3px;
+  border-radius: 8px;
+  background: var(--ember);
+  color: var(--bone);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  line-height: 15px;
+  text-align: center;
+  box-shadow: 0 0 0 2px var(--ink-deep);
+}
+.navbtn span {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.3px;
+}
+.navbtn:active { transform: scale(0.93); }
+.navbtn-active {
+  color: var(--gold);
+  background: rgba(240,198,116,0.08);
+}
+
+/* ---------- Componente "janela" (assinatura visual) ---------- */
+.window {
+  position: relative;
+  margin: 0 14px 14px;
+  padding: 14px 14px 15px;
+  border: 3px solid var(--bone);
+  box-shadow: 0 0 0 3px var(--ink-deep), 0 5px 0 rgba(0,0,0,0.35), 0 5px 10px rgba(0,0,0,0.35);
+  background-image:
+    linear-gradient(var(--gold), var(--gold)),
+    linear-gradient(var(--gold), var(--gold)),
+    linear-gradient(var(--gold), var(--gold)),
+    linear-gradient(var(--gold), var(--gold)),
+    linear-gradient(180deg, var(--window-blue) 0%, var(--window-blue-deep) 100%);
+  background-size: 6px 6px, 6px 6px, 6px 6px, 6px 6px, 100% 100%;
+  background-position: top left, top right, bottom left, bottom right, center;
+  background-repeat: no-repeat;
+}
+.window {
+  border-color: var(--window-border);
+  background-image:  linear-gradient(180deg, var(--window-bg-start), var(--window-bg-end));
+}
+.window-title {
+  font-family: var(--font-display);
+  font-size: 11px;
+  color: var(--gold);
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+.month-title { margin: 0 14px 10px; }
+
+.screen-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4px 14px 10px;
+}
+.screen-header h2 {
+  font-family: var(--font-display);
+  font-size: 13px;
+  color: var(--bone);
+  line-height: 1.5;
+}
+
+/* ---------- Badge de nível ---------- */
+.level-badge {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  background: var(--ink-deep);
+  border: 2px solid var(--gold);
+  border-radius: 4px;
+  padding: 4px 8px;
+  white-space: nowrap;
+}
+.level-badge span { font-family: var(--font-mono); font-size: 10px; color: var(--muted); }
+.level-badge strong { font-family: var(--font-display); font-size: 13px; color: var(--gold); }
+
+/* ---------- Barra de XP (pips estilo RPG) ---------- */
+.xpbar { margin: 0 14px 14px; }
+.xpbar-track {
+  position: relative;
+  height: 16px;
+  border: 2px solid var(--bone);
+  background: var(--ink-deep);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.xpbar-fill {
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  background: linear-gradient(180deg, #6fe6dd, var(--teal));
+  transition: width 0.5s cubic-bezier(.2,.9,.3,1.2);
+}
+.xpbar-pips {
+  position: absolute;
+  inset: 0;
+  display: flex;
+}
+.pip {
+  flex: 1;
+  border-right: 2px solid var(--ink-deep);
+}
+.pip:last-child { border-right: none; }
+.xpbar-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 3px;
+  text-align: right;
+}
+.xpbar-mini .xpbar-track { height: 10px; }
+.xpbar-mini .xpbar-label { display: none; }
+
+/* ---------- Hub / quest cards ---------- */
+.hub-hero {
+  margin: 0 14px 16px;
+  text-align: center;
+}
+.hub-hero-title {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+/* ---------- Badge de patente (anéis ao redor do escudo) ---------- */
+.rank-badge {
+  position: relative;
+  width: 112px;
+  height: 122px;
+  margin: 0 auto 6px;
+  --rank-color: #3a3a3a;
+  --rank-glow: rgba(58,58,58,0.5);
+}
+.shield-emblem-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+.shield-svg { width: 58px; height: 64px; filter: drop-shadow(0 3px 0 rgba(0,0,0,0.4)); }
+.shield-fill { fill: var(--gold); }
+.shield-outline { fill: none; stroke: var(--ink-deep); stroke-width: 5; }
+.shield-inner { fill: none; stroke: var(--gold-deep); stroke-width: 2; opacity: 0.85; }
+.shield-emblem-mark { fill: var(--ink-deep); }
+
+.rank-ring {
+  position: absolute;
+  border: 3px solid var(--rank-color);
+  clip-path: polygon(18% 0, 82% 0, 100% 18%, 100% 82%, 82% 100%, 18% 100%, 0 82%, 0 18%);
+  opacity: 0;
+  transform: scale(0.8);
+  box-shadow: 0 0 8px var(--rank-glow);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(.2,1.4,.4,1), border-color 0.4s ease, box-shadow 0.4s ease;
+  pointer-events: none;
+}
+.rank-ring.active { opacity: 1; transform: scale(1); }
+.rank-ring-1 { inset: 26px; z-index: 1; }
+.rank-ring-2 { inset: 14px; z-index: 0; }
+.rank-ring-3 { inset: 2px; z-index: 0; }
+
+/* Cores de patente agora são aplicadas via --rank-color/--rank-glow inline (app.js),
+   permitindo uma progressão de cores praticamente infinita além das patentes nomeadas. */
+
+.rank-legendary .rank-ring.active {
+  animation: rank-pulse 2.4s ease-in-out infinite;
+}
+@keyframes rank-pulse {
+  0%, 100% { box-shadow: 0 0 8px var(--rank-glow); }
+  50% { box-shadow: 0 0 20px var(--rank-glow); }
+}
+
+.rank-label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--muted);
+  margin-bottom: 4px;
+  letter-spacing: 0.3px;
+}
+
+.cap-note {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--ember);
+  background: rgba(226,112,58,0.12);
+  border: 1px dashed var(--ember);
+  border-radius: 4px;
+  padding: 6px 10px;
+  margin: 8px 14px 4px;
+  line-height: 1.5;
+}
+
+.quest-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: calc(100% - 28px);
+  margin: 0 14px 12px;
+  padding: 12px;
+  text-align: left;
+  border: 3px solid var(--bone);
+  background-image:
+    linear-gradient(var(--gold), var(--gold)), linear-gradient(var(--gold), var(--gold)),
+    linear-gradient(var(--gold), var(--gold)), linear-gradient(var(--gold), var(--gold)),
+    linear-gradient(135deg, var(--window-blue), var(--window-blue-deep));
+  background-size: 6px 6px, 6px 6px, 6px 6px, 6px 6px, 100% 100%;
+  background-position: top left, top right, bottom left, bottom right, center;
+  background-repeat: no-repeat;
+  box-shadow: 0 0 0 3px var(--ink-deep), 0 4px 0 rgba(0,0,0,0.35);
+  border-radius: 2px;
+  transition: transform 0.1s;
+}
+.quest-card:active { transform: scale(0.98); }
+.quest-card-icon { font-size: 26px; flex: 0 0 auto; }
+.quest-card-body { flex: 1 1 auto; min-width: 0; }
+.quest-card-title {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--bone);
+  margin-bottom: 6px;
+}
+
+/* ---------- Formulários ---------- */
+.inline-form { display: flex; gap: 8px; flex-wrap: wrap; }
+.stacked-form { display: flex; flex-direction: column; gap: 8px; }
+.field-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+.field-input, .inline-form input {
+  flex: 1 1 120px;
+  min-width: 0;
+  height: 40px !important;
+  line-height: 1.2 !important;
+  background: var(--ink-deep);
+  border: 2px solid var(--bone-dim);
+  border-radius: 3px;
+  padding: 0 10px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--bone);
+    height: 44px !important; /* um pouco maior para dedos */
+  font-size: 16px !important; /* evita zoom automático no iOS */
+}
+.field-input:focus, .inline-form input:focus {
+  border-color: var(--gold);
+    outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-color: transparent;
+}
+/* Garantia extra pra esses campos especificamente ficarem compactos como os demais */
+#studies-subject-input, #studies-goal-input {
+  height: 40px !important;
+  line-height: 1.2 !important;
+}
+
+/* Remove as setinhas nativas do input number — quebram a ambientação retrô */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+.measures-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 10px;
+  margin: 6px 0 12px;
+}
+.measure-field .field-input { width: 100%; }
+.measures-details summary {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  cursor: pointer;
+  margin: 6px 0;
+}
+.measures-details[open] summary { margin-bottom: 8px; }
+
+.btn {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.4px;
+  padding: 9px 14px;
+  border-radius: 3px;
+  border: 2px solid var(--ink-deep);
+  box-shadow: 0 3px 0 rgba(0,0,0,0.35);
+  transition: transform 0.08s, box-shadow 0.08s;
+  white-space: nowrap;
+}
+.btn:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(0,0,0,0.35); }
+.btn-primary { background: var(--gold); color: var(--ink-deep); }
+.btn-secondary { background: var(--teal); color: var(--ink-deep); }
+.btn-block { width: 100%; text-align: center; }
+.btn-danger { background: var(--ember); color: var(--bone); }
+
+.danger-window { border-color: var(--ember); }
+.danger-text { font-size: 12px; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
+
+/* Feedback tátil: escala sutil ao tocar em botões e cards */
+.btn:active,
+.navbtn:active,
+.quest-card:active,
+.chest-banner-btn:active,
+.card-slot-owned:active,
+.icon-btn:active {
+  transform: scale(0.94);
+  transition: transform 0.06s ease;
+}
+
+/* ---------- Listas genéricas ---------- */
+.goal-list, .history-list, .fitness-history, .finance-list { display: flex; flex-direction: column; gap: 8px; }
+
+.goal-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 6px;
+  background: rgba(0,0,0,0.18);
+  border-radius: 4px;
+  border-left: 3px solid var(--teal);
+}
+.goal-item.goal-done { border-left-color: var(--gold); opacity: 0.75; }
+.goal-item.goal-done .goal-text { text-decoration: line-through; }
+.goal-text { flex: 1 1 auto; font-size: 14px; min-width: 0; word-break: break-word; }
+.goal-xp { font-family: var(--font-mono); font-size: 11px; color: var(--teal); white-space: nowrap; }
+
+.goal-check { position: relative; display: inline-flex; }
+.goal-check input { position: absolute; opacity: 0; width: 22px; height: 22px; margin: 0; }
+.checkmark {
+  width: 22px; height: 22px; border: 2px solid var(--bone-dim);
+  border-radius: 3px; background: var(--ink-deep); display: inline-block; flex: 0 0 auto;
+}
+.goal-check input:checked + .checkmark {
+  background: var(--gold);
+  border-color: var(--gold);
+  box-shadow: inset 0 0 0 3px var(--ink-deep);
+}
+.goal-check input:disabled + .checkmark { opacity: 0.4; }
+
+.icon-btn {
+  font-size: 15px;
+  padding: 4px 6px;
+  color: var(--muted);
+  padding: 8px 10px;
+  min-width: 36px;
+  min-height: 36px;
+}
+.icon-btn:active { color: var(--gold); }
+
+.history-item, .finance-list-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 8px;
+  background: rgba(0,0,0,0.18);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.history-item span:first-child { color: var(--muted); }
+.history-xp { color: var(--teal); }
+.history-rest { opacity: 0.6; }
+
+.empty-msg { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.hint { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-top: 6px; }
+
+/* ---------- Missão diárias: janela de descanso / progresso ---------- */
+.rest-window { display: flex; gap: 12px; align-items: center; }
+.rest-icon { font-size: 30px; }
+.rest-window p { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+.today-window-title { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.today-xp { font-family: var(--font-display); font-size: 18px; color: var(--gold); margin: 6px 0; }
+
+/* ---------- Fitness ---------- */
+.goal-current { font-size: 13.5px; margin-bottom: 10px; }
+.quest-complete {
+  font-size: 13.5px;
+  background: rgba(240,198,116,0.12);
+  border: 2px dashed var(--gold);
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+.fitness-entry { padding: 8px; background: rgba(0,0,0,0.18); border-radius: 4px; }
+.fitness-entry-top { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 12.5px; }
+.fitness-weight { display: flex; gap: 6px; align-items: center; }
+.fitness-measures-line { font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+.delta-up { color: var(--ember); }
+.delta-down { color: var(--teal); }
+
+/* ---------- Estudos ---------- */
+.objective-window { }
+.objective-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.objective-subject { font-family: var(--font-mono); font-size: 14px; color: var(--gold); }
+.objective-goal { font-size: 12.5px; color: var(--muted); margin-top: 3px; }
+.objective-stats { display: flex; gap: 14px; font-family: var(--font-mono); font-size: 11px; color: var(--teal); margin: 10px 0; }
+.objective-actions { display: flex; flex-direction: column; gap: 8px; }
+.objective-history { margin-top: 10px; }
+.objective-history summary { font-family: var(--font-mono); font-size: 11px; color: var(--muted); cursor: pointer; }
+.objective-history[open] summary { margin-bottom: 8px; }
+
+/* ---------- Financeiro ---------- */
+.lock-msg { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.finance-summary { display: flex; flex-direction: column; gap: 6px; }
+.finance-row { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 13px; }
+.finance-row .neg { color: var(--ember); }
+.finance-saldo { border-top: 2px dashed var(--bone-dim); margin-top: 4px; padding-top: 8px; font-size: 14px; }
+.saldo-pos span:last-child { color: var(--teal); }
+.saldo-neg span:last-child { color: var(--ember); }
+
+/* ---------- Baú / Recompensas ---------- */
+.chest-banner {
+  margin: 0 14px 14px;
+}
+.chest-banner-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 2px dashed var(--gold);
+  border-radius: 6px;
+  background: rgba(240,198,116,0.1);
+  color: var(--bone);
+  font-size: 13px;
+  text-align: left;
+  animation: chest-banner-pulse 2s ease-in-out infinite;
+}
+.chest-banner-icon { font-size: 24px; flex: 0 0 auto; }
+
+.chest-window { text-align: center; }
+.chest-idle-wrap { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.chest-static { width: 140px; margin: 4px auto; }
+.chest-static.chest-dim { opacity: 0.45; filter: grayscale(0.6); }
+.chest-svg { width: 100%; height: auto; overflow: visible; }
+.chest-body { fill: #6b4526; stroke: var(--ink-deep); stroke-width: 3; }
+.chest-lid { fill: #8a5a30; stroke: var(--ink-deep); stroke-width: 3; transform-origin: 15px 45px; transition: transform 0.4s cubic-bezier(.2,1.6,.4,1); }
+.chest-lock { fill: var(--gold); stroke: var(--gold-deep); stroke-width: 2; }
+
+/* ---------- Galeria de cards ---------- */
+.rarity-group { margin-bottom: 16px; }
+.rarity-group:last-child { margin-bottom: 0; }
+.rarity-group-title {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px dashed var(--bone-dim);
+}
+.rarity-comum .rarity-group-title { color: var(--bone-dim); }
+.rarity-rara .rarity-group-title { color: var(--teal); }
+.rarity-epica .rarity-group-title { color: #b98af0; }
+.rarity-lendaria .rarity-group-title { color: var(--gold); }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.card-slot {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-slot-locked {
+  background: rgba(0,0,0,0.25);
+  border: 2px dashed var(--bone-dim);
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 16px;
+}
+.card-slot-owned {
+  border: 2px solid var(--gold-deep);
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.card-slot-owned:active { transform: scale(0.95); }
+.card-slot-owned img { width: 100%; height: 100%; object-fit: cover; }
+.card-count-badge {
+  position: absolute;
+  bottom: 3px;
+  right: 3px;
+  background: var(--ink-deep);
+  color: var(--gold);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 1px 5px;
+  border-radius: 8px;
+  border: 1px solid var(--gold);
+}
+
+/* ---------- Visualizador de card (galeria) ---------- */
+.card-viewer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 260;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(11,12,26,0.85);
+  padding: 30px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.card-viewer-overlay.visible { opacity: 1; pointer-events: auto; }
+.card-viewer-frame {
+  max-width: 320px;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 3px solid var(--gold);
+  box-shadow: 0 0 30px rgba(240,198,116,0.4);
+}
+.card-viewer-frame img { width: 100%; display: block; }
+.rarity-frame-comum { border-color: var(--bone-dim); box-shadow: 0 0 20px rgba(185,182,171,0.35); }
+.rarity-frame-rara { border-color: var(--teal); box-shadow: 0 0 24px rgba(78,205,196,0.45); }
+.rarity-frame-epica { border-color: #b98af0; box-shadow: 0 0 28px rgba(155,89,208,0.5); }
+.rarity-frame-lendaria { border-color: var(--gold); box-shadow: 0 0 34px rgba(240,198,116,0.65); }
+
+/* Botões do tutorial */
+#tutorial-prev, #tutorial-next {
+  min-width: 100px;
+}
+#tutorial-prev { background: var(--muted); color: var(--ink-deep); }
+#tutorial-next { background: var(--gold); color: var(--ink-deep); }
+#tutorial-prev:active, #tutorial-next:active { transform: scale(0.95); }
+
+/* ============================================================
+   Otimizações de performance e usabilidade tátil
+   ============================================================ */
+
+/* Aceleração GPU para elementos animados ou com transição */
+.screen.active,
+.xpbar-fill,
+.rank-ring,
+.chest-lid,
+.card-slot-owned,
+.btn,
+.navbtn,
+.icon-btn {
+  will-change: transform, opacity;
+}
+
+/* Previne delay de toque em dispositivos móveis */
+.btn,
+.navbtn,
+.icon-btn,
+.chest-banner-btn,
+.card-slot-owned,
+.goal-check input,
+.tutorial-skip,
+#tutorial-prev,
+#tutorial-next {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Aumenta a área de toque dos botões para pelo menos 44px (recomendação WCAG) */
+.btn,
+.navbtn,
+.icon-btn,
+.chest-banner-btn,
+#tutorial-prev,
+#tutorial-next,
+.tutorial-skip {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 8px 14px; /* mantém o padding, mas garante altura mínima */
+}
+
+/* Ajuste específico para botões que já têm altura fixa */
+.btn {
+  line-height: 1.2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Feedback tátil: escala sutil ao toque */
+.btn:active,
+.navbtn:active,
+.icon-btn:active,
+.chest-banner-btn:active,
+.card-slot-owned:active,
+#tutorial-prev:active,
+#tutorial-next:active,
+.tutorial-skip:active {
+  transform: scale(0.94);
+  transition: transform 0.08s;
+}
+
+/* Para inputs, garantir altura confortável */
+.field-input,
+.inline-form input,
+#name-input,
+#daily-add-input,
+#fitness-goal-input,
+#fitness-weight-input,
+.measure-input,
+#workout-minutes-input,
+#workout-freq-input,
+#workout-log-input,
+#studies-subject-input,
+#studies-goal-input,
+.studies-minutes-input,
+.studies-note-input,
+#finance-salary-input,
+#finance-debt-name,
+#finance-debt-value,
+#finance-expense-name,
+#finance-expense-value {
+  min-height: 44px;
+  font-size: 16px; /* previne zoom automático em iOS */
+}
+
+/* Remove o outline padrão e adiciona um mais visível para foco */
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* Melhora a legibilidade em dispositivos pequenos */
+@media (max-width: 420px) {
+  .window {
+    padding: 12px 10px;
+  }
+  .window-title {
+    font-size: 10px;
+  }
+  .hub-hero-title {
+    font-size: 12px;
+  }
+  .quest-card-title {
+    font-size: 12px;
+  }
+  .navbtn span {
+    font-size: 8px;
+  }
+  .goal-text {
+    font-size: 13px;
+  }
+}
+
+/* Loader de cards */
+.loader-dots {
+  display: inline-block;
+  font-size: 24px;
+  animation: loader-dots 1.2s steps(4) infinite;
+}
+@keyframes loader-dots {
+  0% { content: '⏳'; }
+  25% { content: '⏳.'; }
+  50% { content: '⏳..'; }
+  75% { content: '⏳...'; }
+}
+
+/* Aumenta a área de toque de ícones e elementos pequenos */
+.icon-btn {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Checkbox da daily - aumenta a área de toque */
+.goal-check {
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.goal-check input {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+/* Ajuste para os botões de editar/excluir nas listas */
+.goal-item .icon-btn,
+.finance-list-item .icon-btn {
+  min-width: 44px;
+  min-height: 44px;
+  font-size: 18px; /* maior para facilitar toque */
+}
+
+/* Feedback tátil visual mais forte */
+.btn:active,
+.navbtn:active,
+.icon-btn:active,
+.chest-banner-btn:active,
+.card-slot-owned:active,
+.goal-check input:active + .checkmark {
+  transform: scale(0.92);
+  transition: transform 0.06s;
+}
+
+/* Melhora a legibilidade do placeholder */
+::placeholder {
+  color: var(--muted);
+  opacity: 0.7;
+  font-size: 13px;
+}
+:root {
+  /* Cores base (dia) */
+  --bg-app: var(--ink);
+  --bg-header: var(--ink-deep);
+  --border-header: var(--gold-deep);
+  --window-bg-start: var(--window-blue);
+  --window-bg-end: var(--window-blue-deep);
+  --window-border: var(--bone);
+  --text-primary: var(--bone);
+  --text-muted: var(--muted);
+}
+/* Ambientação dia */
+#app-shell.time-day {
+  --bg-app: #1a1c35; /* um pouco mais claro que o ink */
+  --bg-header: #22254a;
+  --border-header: #f0c674;
+  --window-bg-start: #3d4680;
+  --window-bg-end: #1e2140;
+  --window-border: #d4cfc0;
+  --text-primary: #f0ece0;
+  --text-muted: #a0a4c0;
+    transition: background 1.2s ease, --bg-app 1.2s ease, --bg-header 1.2s ease, --border-header 1.2s ease, --window-bg-start 1.2s ease, --window-bg-end 1.2s ease, --window-border 1.2s ease, --text-primary 1.2s ease, --text-muted 1.2s ease;
+}
+
+/* Ambientação noite */
+#app-shell.time-night {
+  --bg-app: var(--ink-deep);
+  --bg-header: var(--ink-deep);
+  --border-header: #8a7a50; /* dourado mais escuro */
+  --window-bg-start: #2a2f5a;
+  --window-bg-end: #0f1128;
+  --window-border: #a0a0a0;
+  --text-primary: var(--bone);
+  --text-muted: var(--muted);
+}
+
+/* ---------- Tela de configuração inicial ---------- */
+#setup-screen .setup-text {
+  font-size: 13px;
+  color: var(--bone);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+#setup-screen .window {
+  padding: 20px;
+}
+#setup-screen .field-label {
+  margin-top: 6px;
+  margin-bottom: 2px;
+}
+#setup-screen .stacked-form {
+  gap: 12px;
+}
+#setup-skip {
+  margin-top: 12px;
+}
+
+/* ============================================================
+   Tema personalizável
+   ============================================================ */
+
+/* Botão de tema no cabeçalho */
+.theme-toggle {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  font-size: 18px;
+  padding: 4px 6px;
+  color: var(--muted);
+  z-index: 2;
+}
+.theme-toggle:active { color: var(--gold); }
+
+/* Modal de tema */
+.theme-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(11, 12, 26, 0.8);
+  padding: 20px;
+}
+.theme-modal-content {
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+}
+.theme-picker {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 12px 0;
+}
+.theme-option {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 3px solid var(--bone-dim);
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.theme-option:active { transform: scale(0.9); }
+.theme-option.active-theme {
+  border-color: var(--gold);
+  box-shadow: 0 0 16px rgba(240, 198, 116, 0.5);
+  transform: scale(1.08);
+}
+.season-badge {
+  background: rgba(240, 198, 116, 0.1);
+  border: 1px solid var(--gold);
+  border-radius: 30px;
+  padding: 4px 12px;
+  display: inline-block;
+  margin: 0 auto 12px;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+/* Tema manual */
+#theme-toggle-btn {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  font-size: 18px;
+  padding: 4px 6px;
+  color: var(--muted);
+  z-index: 2;
+}
+#theme-toggle-btn:active { color: var(--gold); }
+
+/* Seletor de avatar (na tela de configuração) */
+.avatar-selector {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 8px 0;
+}
+.avatar-option {
+  font-size: 28px;
+  padding: 6px 12px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background: var(--ink-deep);
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.1s;
+}
+.avatar-option:active { transform: scale(0.9); }
+.avatar-option.selected {
+  border-color: var(--gold);
+  background: rgba(240, 198, 116, 0.15);
+}

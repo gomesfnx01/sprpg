@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no" />
+  <title>Sistema Pessoal RPG</title>
+  <meta name="theme-color" content="#14152a" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&family=Nunito:wght@400;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/theme.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+</head>
+
+<body>
+
+  <div id="splash">
+    <div class="splash-emblem">⚔️</div>
+    <div class="splash-title">SISTEMA PESSOAL<br />RPG</div>
+    <div class="splash-bar">
+      <div class="splash-bar-fill"></div>
+    </div>
+    <div class="splash-hint">toque para começar sua jornada</div>
+  </div>
+
+  <div id="name-screen" class="intro-overlay">
+    <div class="intro-emblem">🧙</div>
+    <div class="window intro-window">
+      <div class="window-title">Antes de começar...</div>
+      <p class="intro-text">Qual é o nome do seu Aventureiro(a)?</p>
+      <form id="name-form" class="stacked-form">
+        <input type="text" id="name-input" class="field-input" placeholder="Digite seu nome" maxlength="24" required
+          autocomplete="off" />
+        <button type="submit" class="btn btn-primary btn-block">Confirmar</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="welcome-screen" class="intro-overlay">
+    <div class="intro-emblem">🎉</div>
+    <div class="welcome-title">Bem-vindo(a),<br /><span id="welcome-name">Aventureiro(a)</span>!</div>
+    <div class="intro-hint">sua jornada continua...</div>
+  </div>
+
+  <!-- Tela de configuração inicial -->
+  <div id="setup-screen" class="intro-overlay">
+    <div class="window" style="max-width: 400px; width: 100%; text-align: left;">
+      <div class="window-title">⚙️ Configuração Inicial</div>
+      <p class="setup-text">Antes de começar, defina algumas metas iniciais para acelerar sua jornada. Você pode alterar
+        tudo depois.</p>
+
+      <form id="setup-form" class="stacked-form">
+        <label class="field-label">🎯 Meta de peso (kg) – opcional</label>
+        <input type="number" step="0.1" min="1" id="setup-weight" class="field-input" placeholder="Ex.: 75" />
+
+        <label class="field-label">⏱️ Minutos ideais de estudo por dia</label>
+        <input type="number" min="1" id="setup-study-minutes" class="field-input" placeholder="Ex.: 60" required />
+
+        <label class="field-label">💰 Salário mensal (R$) – opcional</label>
+        <input type="number" step="0.01" min="0" id="setup-salary" class="field-input" placeholder="Ex.: 5000" />
+
+        <label class="field-label">🎭 Escolha seu avatar</label>
+        <div class="avatar-selector">
+          <button type="button" class="avatar-option" data-avatar="⚔️">⚔️</button>
+          <button type="button" class="avatar-option" data-avatar="🛡️">🛡️</button>
+          <button type="button" class="avatar-option" data-avatar="🧙">🧙</button>
+          <button type="button" class="avatar-option" data-avatar="🏹">🏹</button>
+          <button type="button" class="avatar-option" data-avatar="🐉">🐉</button>
+          <button type="button" class="avatar-option" data-avatar="🌟">🌟</button>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Iniciar Aventura!</button>
+      </form>
+      <button id="setup-skip" class="tutorial-skip">Pular configuração</button>
+    </div>
+  </div>
+
+  <!-- Tela de tutorial -->
+  <div id="tutorial-screen" class="intro-overlay">
+    <div class="tutorial-container">
+      <div class="tutorial-step" id="tutorial-step">
+        <!-- O conteúdo será inserido via JS -->
+      </div>
+      <div class="tutorial-nav">
+        <button id="tutorial-prev" class="btn btn-secondary" style="display:none;">◀ Anterior</button>
+        <span id="tutorial-counter" class="tutorial-counter">1 / 6</span>
+        <button id="tutorial-next" class="btn btn-primary">Próximo ▶</button>
+      </div>
+      <button id="tutorial-skip" class="tutorial-skip">Pular tutorial</button>
+    </div>
+  </div>
+
+  <div id="app-shell" class="pre-intro">
+    <header id="app-header">
+      <button id="theme-toggle-btn" class="theme-toggle" title="Personalizar tema">🎨</button>
+      <button id="sound-toggle-btn" class="sound-toggle" title="Ativar/desativar som">🔊</button>
+      <h1>⚔️ Sistema Pessoal RPG</h1>
+      <div id="header-player" class="header-player">🛡️ Aventureiro(a) · Nível 1</div>
+    </header>
+
+    <main id="app-main">
+
+      <section id="screen-hub" class="screen active">
+        <div class="hub-hero">
+          <div class="rank-badge" id="hub-rank-badge">
+            <div class="rank-ring rank-ring-3"></div>
+            <div class="rank-ring rank-ring-2"></div>
+            <div class="rank-ring rank-ring-1"></div>
+            <div class="shield-emblem-wrap">
+              <svg viewBox="0 0 100 110" class="shield-svg" aria-hidden="true">
+                <path class="shield-outline" d="M50 4 L92 18 L92 55 C92 82 74 100 50 106 C26 100 8 82 8 55 L8 18 Z" />
+                <path class="shield-fill" d="M50 4 L92 18 L92 55 C92 82 74 100 50 106 C26 100 8 82 8 55 L8 18 Z" />
+                <path class="shield-inner" d="M50 14 L84 26 L84 54 C84 76 70 90 50 96 C30 90 16 76 16 54 L16 26 Z" />
+                <path class="shield-emblem-mark" d="M50 32 L59 50 L50 68 L41 50 Z" />
+              </svg>
+            </div>
+          </div>
+          <div id="hub-rank-label" class="rank-label">Patente: Ferro I</div>
+          <div class="hub-hero-title">Nível <span id="hub-overall-level">1</span> — <span
+              id="hub-hero-name">Aventureiro(a)</span></div>
+          <div id="hub-cap-note" class="cap-note" style="display:none;"></div>
+          <div id="hub-overall-xpbar"></div>
+        </div>
+        <div id="hub-cards"></div>
+
+        <div id="hub-chest-banner" class="chest-banner" style="display:none;"></div>
+
+        <!-- Ferramentas (Zona de Reinício e Backup) -->
+        <details class="window" style="border-color: var(--bone-dim); cursor: pointer; margin-bottom: 14px;">
+          <summary
+            style="font-family: var(--font-mono); font-size: 11px; color: var(--muted); list-style: none; display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 14px;">🔧</span> Ferramentas
+          </summary>
+          <div style="margin-top: 12px; border-top: 1px dashed var(--bone-dim); padding-top: 12px;">
+            <!-- Reinício -->
+            <p class="danger-text" style="font-size: 12px; color: var(--muted); line-height: 1.6; margin-bottom: 12px;">
+              ⚠️ Isso apaga <strong>permanentemente</strong> todo o progresso: Quests, Vigor, Inteligência,
+              Tesouro, XP e nível — incluindo o nome do Aventureiro(a). Você vai precisar cadastrar um novo nome.
+            </p>
+            <button id="reset-adventure-btn" class="btn btn-danger btn-block"
+              style="font-size: 12px; padding: 6px 10px; margin-bottom: 16px;">Reiniciar Aventura</button>
+
+            <!-- Backup -->
+            <div style="border-top: 1px dashed var(--bone-dim); padding-top: 12px;">
+              <p style="font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-bottom: 8px;">💾
+                Backup do Progresso</p>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button id="export-btn" class="btn btn-secondary" style="flex:1;">Exportar</button>
+                <button id="import-btn" class="btn btn-secondary" style="flex:1;">Importar</button>
+              </div>
+              <input type="file" id="import-file" accept=".json" style="display:none;" />
+              <p class="hint">Exporta um arquivo .json com todo o progresso. Use o import para restaurar.</p>
+            </div>
+          </div>
+        </details>
+
+      </section>
+
+      <!-- Modal de personalização de tema (cores) -->
+      <div id="theme-modal" class="theme-modal" style="display:none;">
+        <div class="theme-modal-content window">
+          <div class="window-title">🎨 Personalizar Tema</div>
+          <p class="hint">Escolha a cor principal do app:</p>
+          <div class="theme-picker">
+            <button class="theme-option" data-color="#f0c674" style="background:#f0c674;"
+              title="Dourado (padrão)"></button>
+            <button class="theme-option" data-color="#4ecdc4" style="background:#4ecdc4;" title="Teal"></button>
+            <button class="theme-option" data-color="#e2703a" style="background:#e2703a;" title="Laranja"></button>
+            <button class="theme-option" data-color="#b98af0" style="background:#b98af0;" title="Roxo"></button>
+            <button class="theme-option" data-color="#ff6b6b" style="background:#ff6b6b;" title="Vermelho"></button>
+            <button class="theme-option" data-color="#ffd93d" style="background:#ffd93d;" title="Amarelo"></button>
+            <button class="theme-option" data-color="#6bcbff" style="background:#6bcbff;" title="Azul"></button>
+            <button class="theme-option" data-color="#ff8a5c" style="background:#ff8a5c;" title="Pêssego"></button>
+          </div>
+          <button id="theme-close-btn" class="btn btn-secondary btn-block" style="margin-top:12px;">Fechar</button>
+        </div>
+      </div>
+
+      <section id="screen-daily" class="screen"></section>
+      <section id="screen-fitness" class="screen"></section>
+      <section id="screen-studies" class="screen"></section>
+      <section id="screen-finance" class="screen"></section>
+      <section id="screen-rewards" class="screen"></section>
+
+    </main>
+
+    <nav id="app-nav">
+      <button class="navbtn" data-screen="screen-hub">🏰<span>Home</span></button>
+      <button class="navbtn" data-screen="screen-daily">📜<span>Quests</span></button>
+      <button class="navbtn" data-screen="screen-fitness">💪<span>Vigor</span></button>
+      <button class="navbtn" data-screen="screen-studies">🧠<span>Intel.</span></button>
+      <button class="navbtn" data-screen="screen-finance">💰<span>Tesouro</span></button>
+      <button class="navbtn" id="nav-rewards-btn" data-screen="screen-rewards">🎁<span>Baú</span></button>
+    </nav>
+  </div>
+
+  <script src="js/core/utils.js"></script>
+  <script src="js/core/storage.js"></script>
+  <script src="js/core/xp.js"></script>
+  <script src="js/core/ui.js"></script>
+  <script src="js/core/sound.js"></script>
+  <script src="js/missions/daily.js"></script>
+  <script src="js/missions/fitness.js"></script>
+  <script src="js/missions/studies.js"></script>
+  <script src="js/missions/finance.js"></script>
+  <script src="js/missions/rewards.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js').catch(() => { });
+      });
+    }
+  </script>
+</body>
+
+</html>

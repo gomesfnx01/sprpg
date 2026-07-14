@@ -1,0 +1,40 @@
+/* ============================================================
+   reset.css — reset básico e configuração de fontes
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+body {
+  overflow-x: hidden;
+  height: 100%;
+  position: fixed;
+  width: 100%;
+}
+h1, h2, h3, p, ul, li, form, fieldset { margin: 0; padding: 0; }
+ul { list-style: none; }
+button, input {
+  font-family: inherit;
+  color: inherit;
+}
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+input {
+  outline: none;
+}
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

@@ -1,0 +1,565 @@
+/* ============================================================
+   animations.css — tela de abertura, level up e toasts
+   ============================================================ */
+
+/* ---------- Splash / tela de abertura ---------- */
+#splash {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  background: var(--ink-deep);
+  background-image: radial-gradient(circle at 50% 30%, rgba(240,198,116,0.12), transparent 55%);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+#splash.splash-hide { opacity: 0; transform: scale(1.04); pointer-events: none; }
+
+.splash-emblem {
+  font-size: 56px;
+  animation: splash-float 2.2s ease-in-out infinite;
+}
+@keyframes splash-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.splash-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: var(--gold);
+  text-align: center;
+  line-height: 1.8;
+  padding: 0 24px;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+  animation: splash-reveal 1s steps(24) forwards;
+  overflow: hidden;
+  white-space: normal;
+}
+@keyframes splash-reveal {
+  from { filter: brightness(0.3); }
+  to { filter: brightness(1); }
+}
+
+.splash-bar {
+  width: 200px;
+  height: 10px;
+  border: 2px solid var(--bone);
+  background: var(--ink);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.splash-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--teal), var(--gold));
+  animation: splash-loading 2.4s ease forwards;
+}
+@keyframes splash-loading {
+  to { width: 100%; }
+}
+
+.splash-hint {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  animation: splash-blink 1.6s ease-in-out infinite;
+}
+@keyframes splash-blink {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* ---------- Level Up overlay ---------- */
+.levelup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(11,12,26,0.75);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.levelup-overlay.visible { opacity: 1; }
+
+.levelup-window {
+  position: relative;
+  min-width: 240px;
+  max-width: 80vw;
+  padding: 26px 22px;
+  text-align: center;
+  border: 3px solid var(--bone);
+  background-image:
+    linear-gradient(var(--gold), var(--gold)), linear-gradient(var(--gold), var(--gold)),
+    linear-gradient(var(--gold), var(--gold)), linear-gradient(var(--gold), var(--gold)),
+    linear-gradient(180deg, var(--window-blue), var(--window-blue-deep));
+  background-size: 8px 8px, 8px 8px, 8px 8px, 8px 8px, 100% 100%;
+  background-position: top left, top right, bottom left, bottom right, center;
+  background-repeat: no-repeat;
+  box-shadow: 0 0 0 3px var(--ink-deep), 0 0 40px rgba(240,198,116,0.35);
+  transform: scale(0.85);
+  transition: transform 0.3s cubic-bezier(.2,1.4,.4,1);
+}
+.levelup-overlay.visible .levelup-window { transform: scale(1); }
+
+.levelup-burst {
+  position: absolute;
+  inset: -30px;
+  background: radial-gradient(circle, rgba(240,198,116,0.35), transparent 65%);
+  animation: levelup-pulse 1.4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes levelup-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+.levelup-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--gold);
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+  animation: levelup-shake 0.5s ease;
+}
+@keyframes levelup-shake {
+  0% { transform: translateY(-10px); opacity: 0; }
+  60% { transform: translateY(2px); opacity: 1; }
+  100% { transform: translateY(0); }
+}
+.levelup-sub { font-family: var(--font-mono); font-size: 12px; color: var(--bone); margin-top: 10px; }
+.levelup-level { font-family: var(--font-display); font-size: 15px; color: var(--teal); margin-top: 10px; }
+.levelup-hint { font-family: var(--font-mono); font-size: 9px; color: var(--muted); margin-top: 16px; }
+
+/* ---------- Telas de nome / boas-vindas ---------- */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 190;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  text-align: center;
+  background: var(--ink-deep);
+  background-image: radial-gradient(circle at 50% 30%, rgba(240,198,116,0.12), transparent 55%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.intro-overlay.visible { opacity: 1; pointer-events: auto; }
+.intro-overlay.overlay-hide { opacity: 0; transform: scale(1.04); pointer-events: none; }
+
+.intro-emblem {
+  font-size: 48px;
+  animation: splash-float 2.2s ease-in-out infinite;
+}
+.intro-window { width: 100%; max-width: 320px; margin: 0; text-align: left; }
+.intro-text { font-size: 13.5px; color: var(--bone); margin-bottom: 10px; }
+.intro-hint {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  animation: splash-blink 1.6s ease-in-out infinite;
+}
+
+.welcome-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--gold);
+  line-height: 1.9;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+  animation: levelup-shake 0.5s ease;
+}
+/* ---------- Ambientação de dia/noite ---------- */
+#app-shell::before,
+#app-shell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 2s ease; /* transição mais longa e suave */
+}
+
+/* Dia (06h–18h): luz quente e suave vindo de cima, como sol entrando */
+#app-shell.time-day::before {
+  opacity: 1;
+  background:
+    /* Brilho principal vindo do topo, como sol entrando */
+    radial-gradient(ellipse 100% 50% at 50% -10%, rgba(255, 221, 150, 0.35) 0%, transparent 70%),
+    /* Brilho secundário vindo da esquerda, simulando reflexão */
+    radial-gradient(ellipse 60% 30% at 10% 0%, rgba(255, 236, 190, 0.20) 0%, transparent 65%),
+    /* Toque de luz mais difusa no canto inferior direito */
+    radial-gradient(ellipse 50% 40% at 90% 80%, rgba(255, 220, 140, 0.08) 0%, transparent 60%);
+  /* Sutil brilho pulsante (opcional) */
+  animation: day-glow 6s ease-in-out infinite alternate;
+}
+
+@keyframes day-glow {
+  0% { opacity: 0.85; }
+  100% { opacity: 1; }
+}
+
+/* Noite (18h–06h): névoa fria se movendo devagar + estrelinhas */
+#app-shell.time-night::after {
+  opacity: 1;
+  background:
+    /* Névoa densa vindo de baixo (esquerda e direita) */
+    radial-gradient(ellipse 80% 40% at 15% 95%, rgba(160, 175, 215, 0.25) 0%, transparent 65%),
+    radial-gradient(ellipse 70% 35% at 85% 95%, rgba(150, 165, 210, 0.22) 0%, transparent 65%),
+    /* Névoa adicional no centro-baixo */
+    radial-gradient(ellipse 60% 25% at 50% 100%, rgba(130, 145, 195, 0.15) 0%, transparent 70%),
+    /* Estrelas – agora mais brilhantes e com mais pontos */
+    radial-gradient(2px 2px at 18% 12%, rgba(255, 255, 255, 0.9) 0%, transparent),
+    radial-gradient(2px 2px at 55% 6%, rgba(255, 255, 255, 0.85) 0%, transparent),
+    radial-gradient(1.5px 1.5px at 78% 22%, rgba(255, 255, 255, 0.9) 0%, transparent),
+    radial-gradient(1.5px 1.5px at 32% 28%, rgba(255, 255, 255, 0.8) 0%, transparent),
+    radial-gradient(2px 2px at 90% 14%, rgba(255, 255, 255, 0.85) 0%, transparent),
+    radial-gradient(1.5px 1.5px at 8% 45%, rgba(255, 255, 255, 0.75) 0%, transparent),
+    radial-gradient(2px 2px at 68% 40%, rgba(255, 255, 255, 0.9) 0%, transparent),
+    radial-gradient(1px 1px at 42% 55%, rgba(255, 255, 255, 0.7) 0%, transparent),
+    radial-gradient(1.5px 1.5px at 25% 70%, rgba(255, 255, 255, 0.8) 0%, transparent),
+    radial-gradient(2px 2px at 75% 65%, rgba(255, 255, 255, 0.85) 0%, transparent);
+  animation:
+    night-fog-drift 30s ease-in-out infinite alternate,
+    night-twinkle 3s ease-in-out infinite;
+}
+/* Névoa se movendo mais devagar e com mais amplitude */
+@keyframes night-fog-drift {
+  0% { transform: translateX(-3%) translateY(0) scale(1); }
+  100% { transform: translateX(3%) translateY(-1.5%) scale(1.02); }
+}
+
+/* Estrelas piscando com mais contraste */
+@keyframes night-twinkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* ---------- Toast ---------- */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 92px;
+  transform: translate(-50%, 12px);
+  z-index: 250;
+  padding: 9px 16px;
+  border-radius: 4px;
+  border: 2px solid var(--gold);
+  background: var(--ink-deep);
+  color: var(--bone);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  max-width: 88vw;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+.toast-xp { border-color: var(--teal); color: var(--teal); }
+
+/* ---------- Banner de baú disponível na Home ---------- */
+@keyframes chest-banner-pulse {
+  0%, 100% { box-shadow: 0 0 0 rgba(240,198,116,0); }
+  50% { box-shadow: 0 0 14px rgba(240,198,116,0.35); }
+}
+
+/* ---------- Animação de abrir o baú ---------- */
+.chest-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(11,12,26,0.85);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  padding: 24px;
+}
+.chest-overlay.visible { opacity: 1; }
+
+.chest-anim-wrap {
+  position: relative;
+  width: 200px;
+}
+@keyframes chest-shake-kf {
+  0%, 100% { transform: rotate(0deg) translateX(0); }
+  10% { transform: rotate(-4deg) translateX(-3px); }
+  20% { transform: rotate(4deg) translateX(3px); }
+  30% { transform: rotate(-5deg) translateX(-4px); }
+  40% { transform: rotate(5deg) translateX(4px); }
+  50% { transform: rotate(-3deg) translateX(-2px); }
+  60% { transform: rotate(3deg) translateX(2px); }
+  70% { transform: rotate(-2deg); }
+  80% { transform: rotate(2deg); }
+  90% { transform: rotate(-1deg); }
+}
+.chest-shaking { animation: chest-shake-kf 0.9s ease-in-out; }
+.chest-open .chest-lid {
+  transform: translate(-8px, -22px) rotate(-38deg);
+}
+.chest-open::after {
+  content: '';
+  position: absolute;
+  inset: -30px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240,198,116,0.55), transparent 65%);
+  animation: chest-flash-kf 0.55s ease-out;
+  pointer-events: none;
+}
+@keyframes chest-flash-kf {
+  0% { opacity: 0; transform: scale(0.4); }
+  50% { opacity: 1; }
+  100% { opacity: 0; transform: scale(1.4); }
+}
+
+/* ---------- Revelação do card (uma animação por raridade) ---------- */
+.card-reveal-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.chest-overlay.card-visible .card-reveal-wrap { opacity: 1; }
+
+.reveal-burst {
+  position: absolute;
+  inset: -50px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+}
+@keyframes reveal-pulse-kf {
+  0%, 100% { opacity: 0.55; transform: scale(0.92); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+@keyframes reveal-spin-kf {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.reveal-rarity-label {
+  font-family: var(--font-display);
+  font-size: 16px;
+  animation: levelup-shake 0.5s ease;
+}
+
+.reveal-card-frame {
+  width: 220px;
+  max-width: 68vw;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 3px solid var(--bone-dim);
+  animation: reveal-pop-in-kf 0.55s cubic-bezier(.2,1.6,.4,1) both;
+}
+.reveal-card-frame img { width: 100%; display: block; }
+@keyframes reveal-pop-in-kf {
+  0% { transform: scale(0.3) rotate(-10deg); opacity: 0; }
+  65% { transform: scale(1.08) rotate(3deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+.reveal-hint {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--muted);
+  animation: splash-blink 1.6s ease-in-out infinite;
+}
+
+/* Comum */
+.reveal-comum .reveal-rarity-label { color: var(--bone-dim); }
+.reveal-comum .reveal-card-frame { border-color: var(--bone-dim); box-shadow: 0 0 20px rgba(185,182,171,0.4); }
+.reveal-comum .reveal-burst { background: radial-gradient(circle, rgba(185,182,171,0.25), transparent 60%); animation: reveal-pulse-kf 2.2s ease-in-out infinite; }
+
+/* Rara */
+.reveal-rara .reveal-rarity-label { color: var(--teal); }
+.reveal-rara .reveal-card-frame { border-color: var(--teal); box-shadow: 0 0 26px rgba(78,205,196,0.55); }
+.reveal-rara .reveal-burst { background: radial-gradient(circle, rgba(78,205,196,0.3), transparent 60%); animation: reveal-pulse-kf 1.8s ease-in-out infinite; }
+
+/* Épica */
+.reveal-epica .reveal-rarity-label { color: #b98af0; }
+.reveal-epica .reveal-card-frame { border-color: #b98af0; box-shadow: 0 0 32px rgba(155,89,208,0.6); }
+.reveal-epica .reveal-burst {
+  background: radial-gradient(circle, rgba(155,89,208,0.35), transparent 60%),
+    conic-gradient(from 0deg, transparent, rgba(155,89,208,0.3), transparent 70%);
+  animation: reveal-pulse-kf 1.6s ease-in-out infinite, reveal-spin-kf 7s linear infinite;
+}
+
+/* Lendária */
+.reveal-lendaria .reveal-rarity-label { color: var(--gold); text-shadow: 2px 2px 0 rgba(0,0,0,0.5); font-size: 19px; }
+.reveal-lendaria .reveal-card-frame { border-color: var(--gold); box-shadow: 0 0 42px rgba(240,198,116,0.75); }
+.reveal-lendaria .reveal-burst {
+  background: radial-gradient(circle, rgba(240,198,116,0.5), transparent 60%),
+    conic-gradient(from 0deg, transparent, rgba(240,198,116,0.4), transparent 55%, rgba(240,198,116,0.4), transparent);
+  animation: reveal-pulse-kf 1.1s ease-in-out infinite, reveal-spin-kf 4.5s linear infinite;
+}
+
+/* ---------- Tutorial ---------- */
+#tutorial-screen .tutorial-container {
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  background: var(--window-blue-deep);
+  border: 3px solid var(--bone);
+  border-radius: 8px;
+  box-shadow: 0 0 0 3px var(--ink-deep), 0 8px 30px rgba(0,0,0,0.6);
+  text-align: center;
+}
+#tutorial-screen .tutorial-step {
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+}
+.tutorial-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+.tutorial-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.tutorial-text {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--bone);
+  line-height: 1.6;
+  max-width: 300px;
+}
+.tutorial-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  gap: 12px;
+}
+.tutorial-counter {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+.tutorial-skip {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 12px;
+  text-decoration: underline;
+}
+.tutorial-skip:active { color: var(--gold); }
+
+/* ---------- Spinner de carregamento ---------- */
+.spinner {
+  animation: spin 1.2s linear infinite;
+  display: inline-block;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.loading-spinner .hint {
+  font-size: 11px;
+  color: var(--muted);
+  animation: splash-blink 1.6s ease-in-out infinite;
+}
+
+#setup-screen .stacked-form {
+  gap: 10px;
+}
+#setup-screen .field-label {
+  margin-top: 2px;
+  font-size: 11px;
+}
+#setup-screen .window {
+  padding: 18px 16px 16px;
+}
+
+/* ============================================================
+   Micro-interações visuais
+   ============================================================ */
+
+/* Efeito de "hover" suave em elementos clicáveis (desktop) */
+@media (hover: hover) {
+  .btn:hover,
+  .navbtn:hover,
+  .icon-btn:hover,
+  .quest-card:hover,
+  .chest-banner-btn:hover,
+  .card-slot-owned:hover {
+    filter: brightness(1.15);
+    transition: filter 0.2s ease;
+  }
+}
+
+/* Feedback de carregamento para botões */
+.btn-loading {
+  position: relative;
+  color: transparent !important;
+  pointer-events: none;
+}
+.btn-loading::after {
+  content: '⏳';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-deep);
+  font-size: 18px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Transição suave para o scroll (se houver) */
+#app-main {
+  scroll-behavior: smooth;
+}
+
+/* Destaque para elementos recém-adicionados (piscada suave) */
+@keyframes highlight-flash {
+  0% { background-color: rgba(240, 198, 116, 0.3); }
+  100% { background-color: transparent; }
+}
+.highlight-new {
+  animation: highlight-flash 1.2s ease-out;
+}
+
+/* ---------- Confete (level up) ---------- */
+@keyframes confetti-fall {
+  0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(120px) rotate(720deg); opacity: 0; }
+}
+.confetti-piece {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  z-index: 301;
+  pointer-events: none;
+  animation: confetti-fall 1.5s ease-out forwards;
+}
