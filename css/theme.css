@@ -1015,3 +1015,55 @@ input:focus-visible {
   border-color: var(--gold);
   background: rgba(240, 198, 116, 0.15);
 }
+
+/* ---------- Tela de configuração inicial (scroll) ---------- */
+#setup-screen .window {
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 20px 16px;
+  scrollbar-width: thin; /* Firefox */
+}
+#setup-screen .window::-webkit-scrollbar {
+  width: 4px;
+}
+#setup-screen .window::-webkit-scrollbar-track {
+  background: var(--ink-deep);
+}
+#setup-screen .window::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 4px;
+}
+
+/* Garante que o botão "Pular configuração" fique visível */
+#setup-screen .tutorial-skip {
+  margin-top: 16px;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+/* ============================================================
+   Correção: scroll na tela de configuração inicial
+   ============================================================ */
+#setup-screen .window {
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 20px 16px;
+  scrollbar-width: thin;
+}
+#setup-screen .window::-webkit-scrollbar {
+  width: 4px;
+}
+#setup-screen .window::-webkit-scrollbar-track {
+  background: var(--ink-deep);
+}
+#setup-screen .window::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 4px;
+}
+#setup-screen .tutorial-skip {
+  margin-top: 16px;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
